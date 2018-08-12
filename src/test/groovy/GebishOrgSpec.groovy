@@ -1,4 +1,7 @@
 import geb.spock.GebSpec
+import pages.GebishOrgHomePage
+import pages.GoogleHomePage
+import pages.TheBookOfGebPage
 
 class GebishOrgSpec extends GebSpec {
 
@@ -17,5 +20,20 @@ class GebishOrgSpec extends GebSpec {
 
         then:
         at TheBookOfGebPage
+    }
+
+
+    def "Open google and search"() {
+        when:
+        GoogleHomePage g =   to GoogleHomePage
+        then:
+            g.searchTxt << "Gebish"
+            g.searchBtn.click();
+            waitFor {
+                g.resultStats.displayed
+            }
+
+        then:
+            at GoogleHomePage
     }
 }
